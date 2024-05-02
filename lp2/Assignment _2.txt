@@ -1,0 +1,70 @@
+Experiment:2
+
+CODE:
+
+import heapq
+
+class Node:
+    def __init__(self, state, parent=None, action=None, cost=0, heuristic=0):
+        self.state = state
+        self.parent = parent
+        self.action = action
+        self.cost = cost
+        self.heuristic = heuristic
+    
+    def __lt__(self, other):
+        return (self.cost + self.heuristic) < (other.cost + other.heuristic)
+
+def astar(start_state, goal_state, actions, transition_model, heuristic):
+    open_list = []
+    closed_set = set()
+    
+    start_node = Node(state=start_state, cost=0, heuristic=heuristic(start_state, goal_state))
+    heapq.heappush(open_list, start_node)
+    
+    while open_list:
+        current_node = heapq.heappop(open_list)
+        
+        if current_node.state == goal_state:
+            return get_solution(current_node)
+        
+        closed_set.add(current_node.state)
+        
+        for action in actions(current_node.state):
+            next_state = transition_model(current_node.state, action)
+            if next_state not in closed_set:
+                cost = current_node.cost + 1
+                heuristic_val = heuristic(next_state, goal_state)
+                next_node = Node(state=next_state, parent=current_node, action=action, cost=cost, heuristic=heuristic_val)
+                heapq.heappush(open_list, next_node)
+    
+    return None
+
+def get_solution(node):
+    solution = []
+    while node:
+        solution.append((node.state, node.action))
+        node = node.parent
+    return list(reversed(solution))
+
+# Example usage:
+# Define your game-specific functions: actions, transition_model, and heuristic
+def actions(state):
+    # Returns a list of possible actions from a given state
+    pass
+
+def transition_model(state, action):
+    # Given a state and an action, returns the next state
+    pass
+
+def heuristic(state, goal_state):
+    # A heuristic function estimating the cost from the current state to the goal state
+    pass
+
+start_state = ...
+goal_state = ...
+solution = astar(start_state, goal_state, actions, transition_model, heuristic)
+print(solution)
+
+OUTPUT:
+[(Ellipsis, None)]

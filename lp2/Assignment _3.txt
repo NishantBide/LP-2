@@ -1,0 +1,63 @@
+Experiment: 3
+Implement Greedy search algorithm for any of the following
+application: Selection Sort
+
+CODE:
+class Student:
+    def __init__(self, name, roll_number):
+        self.name = name
+        self.roll_number = roll_number
+
+# Function to perform selection sort on a list of Student objects based on roll number
+def selection_sort(students):
+    n = len(students)
+    for i in range(n - 1):
+        min_index = i
+        for j in range(i + 1, n):
+            if students[j].roll_number < students[min_index].roll_number:
+                min_index = j
+        # Swap the students at min_index and i
+        students[min_index], students[i] = students[i], students[min_index]
+
+if __name__ == "__main__":
+    num_students = int(input("Enter the number of students: "))
+    
+    students = []
+    for i in range(num_students):
+        name = input(f"Enter name of student {i + 1}: ")
+        roll_number = int(input(f"Enter roll number of student {i + 1}: "))
+        students.append(Student(name, roll_number))
+    
+    print("\nStudents before sorting:")
+    for student in students:
+        print(f"Name: {student.name}, Roll Number: {student.roll_number}")
+    
+    selection_sort(students)
+    
+    print("\nStudents after sorting by roll number:")
+    for student in students:
+        print(f"Name: {student.name}, Roll Number: {student.roll_number}")
+
+
+OUTPUT:
+Enter the number of students: 4
+Enter name of student 1: Sakshi
+Enter roll number of student 1: 45
+Enter name of student 2: Tejal
+Enter roll number of student 2: 23
+Enter name of student 3: Gautami
+Enter roll number of student 3: 15
+Enter name of student 4: Prerana
+Enter roll number of student 4: 65
+
+Students before sorting:
+Name: Sakshi, Roll Number: 45
+Name: Tejal, Roll Number: 23
+Name: Gautami, Roll Number: 15
+Name: Prerana, Roll Number: 65
+
+Students after sorting by roll number:
+Name: Gautami, Roll Number: 15
+Name: Tejal, Roll Number: 23
+Name: Sakshi, Roll Number: 45
+Name: Prerana, Roll Number: 65

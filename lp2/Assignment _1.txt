@@ -1,0 +1,79 @@
+Experiment 1 :Implement depth first search algorithm and Breadth First Search algorithm, Use an undirected 
+Graph and develop a recursive algorithm for searching all the vertices of a graph or tree data
+structure.
+
+CODE: 
+
+from collections import defaultdict
+
+class Graph:
+    def __init__(self):
+        self.graph = defaultdict(list)
+        self.vertices_visited = 0
+        self.edges_visited = 0
+
+    def add_edge(self, u, v):
+        self.graph[u].append(v)
+        self.graph[v].append(u)
+        self.edges_visited += 1
+
+    def dfs_util(self, v, visited):
+        visited.add(v)
+        print(v, end=' ')
+        self.vertices_visited += 1
+
+        for neighbor in self.graph[v]:
+            self.edges_visited += 1
+            if neighbor not in visited:
+                self.dfs_util(neighbor, visited)
+
+    def dfs(self, start):
+        visited = set()
+        self.dfs_util(start, visited)
+        print("\nTotal vertices visited:", self.vertices_visited)
+        print("Total edges visited:", self.edges_visited)
+
+    def bfs(self, start):
+        visited = set()
+        queue = [start]
+        visited.add(start)
+
+        while queue:
+            v = queue.pop(0)
+            print(v, end=' ')
+            self.vertices_visited += 1
+
+            for neighbor in self.graph[v]:
+                self.edges_visited += 1
+                if neighbor not in visited:
+                    queue.append(neighbor)
+                    visited.add(neighbor)
+
+        print("\nTotal vertices visited:", self.vertices_visited)
+        print("Total edges visited:", self.edges_visited)
+
+# Example usage:
+g = Graph()
+g.add_edge(1, 2)
+g.add_edge(1, 3)
+g.add_edge(2, 4)
+g.add_edge(2, 5)
+
+print("Depth First Search (DFS):")
+g.dfs(1)
+
+print("\nBreadth First Search (BFS):")
+g.bfs(2)
+
+OUTPUT:
+Depth First Search (DFS):
+1 2 4 5 3 
+Total vertices visited: 5
+Total edges visited: 12
+
+Breadth First Search (BFS):
+2 1 4 5 3 
+Total vertices visited: 10
+Total edges visited: 20
+
+
