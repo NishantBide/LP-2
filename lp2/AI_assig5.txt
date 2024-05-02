@@ -1,0 +1,49 @@
+﻿Code:-
+
+books = {
+    "The Great Gatsby": "F. Scott Fitzgerald",
+    "To Kill a Mockingbird": "Harper Lee",
+    "1984": "George Orwell",
+    "Pride and Prejudice": "Jane Austen",
+    "The Catcher in the Rye": "J.D. Salinger"
+}
+
+def recommend_book(genre):
+    genre_books = []
+    for book, author in books.items():
+        if genre.lower() in book.lower():
+            genre_books.append((book, author))
+    if genre_books:
+        return genre_books
+    else:
+        return "Sorry, I don't have recommendations for that genre."
+
+# Example usage:
+print("Welcome to the Book Recommendation Chatbot!")
+while True:
+    user_input = input("Please enter a genre of books you're interested in (or 'quit' to exit): ")
+    if user_input.lower() == 'quit':
+        print("Goodbye!")
+        break
+    recommendations = recommend_book(user_input)
+    if isinstance(recommendations, str):
+        print(recommendations)
+    else:
+        print("Here are some book recommendations for you:")
+        for book, author in recommendations:
+            print(f"- {book} by {author}")
+            
+Output:-
+
+Welcome to the Book Recommendation Chatbot!
+Please enter a genre of books you're interested in (or 'quit' to exit): The Great Gatsby
+Here are some book recommendations for you:
+- The Great Gatsby by F. Scott Fitzgerald
+Please enter a genre of books you're interested in (or 'quit' to exit): 1984
+Here are some book recommendations for you:
+- 1984 by George Orwell
+Please enter a genre of books you're interested in (or 'quit' to exit): To Kill a Mockingbird
+Here are some book recommendations for you:
+- To Kill a Mockingbird by Harper Lee
+Please enter a genre of books you're interested in (or 'quit' to exit): quit
+Goodbye!
